@@ -3,7 +3,7 @@ package lexer
 import (
 	"testing"
 
-	"github.com/wasanx25/gopter/monkey/token"
+	"github.com/wasanx25/gopter/token"
 )
 
 func TestNextToken(t *testing.T) {
