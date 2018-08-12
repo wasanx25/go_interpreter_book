@@ -1,8 +1,9 @@
-package evaluator
+package evaluator_test
 
 import (
 	"testing"
 
+	"github.com/wasanx25/gopter/evaluator"
 	"github.com/wasanx25/gopter/lexer"
 	"github.com/wasanx25/gopter/object"
 	"github.com/wasanx25/gopter/parser"
@@ -259,7 +260,7 @@ func testEval(input string) object.Object {
 	program := p.ParseProgram()
 	env := object.NewEnvironment()
 
-	return Eval(program, env)
+	return evaluator.Eval(program, env)
 }
 
 func testIntegerObject(t *testing.T, obj object.Object, expected int64) bool {
@@ -293,7 +294,7 @@ func testBooleanObject(t *testing.T, obj object.Object, expected bool) bool {
 }
 
 func testNullObject(t *testing.T, obj object.Object) bool {
-	if obj != NULL {
+	if obj != evaluator.NULL {
 		t.Errorf("object is not NULL. got=%T (%+v)", obj, obj)
 		return false
 	}

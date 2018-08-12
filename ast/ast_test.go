@@ -1,21 +1,22 @@
-package ast
+package ast_test
 
 import (
 	"testing"
 
+	"github.com/wasanx25/gopter/ast"
 	"github.com/wasanx25/gopter/token"
 )
 
 func TestString(t *testing.T) {
-	program := &Program{
-		Statements: []Statement{
-			&LetStatement{
+	program := &ast.Program{
+		Statements: []ast.Statement{
+			&ast.LetStatement{
 				Token: token.Token{Type: token.LET, Literal: "let"},
-				Name: &Identifier{
+				Name: &ast.Identifier{
 					Token: token.Token{Type: token.IDENT, Literal: "myVar"},
 					Value: "myBar",
 				},
-				Value: &Identifier{
+				Value: &ast.Identifier{
 					Token: token.Token{Type: token.IDENT, Literal: "anotherVar"},
 					Value: "anotherVar",
 				},

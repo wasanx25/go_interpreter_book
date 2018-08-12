@@ -1,8 +1,9 @@
-package lexer
+package lexer_test
 
 import (
 	"testing"
 
+	"github.com/wasanx25/gopter/lexer"
 	"github.com/wasanx25/gopter/token"
 )
 
@@ -107,7 +108,7 @@ if (5 < 10) {
 		{token.EOF, ""},
 	}
 
-	l := New(input)
+	l := lexer.New(input)
 
 	for i, tt := range tests {
 		tok := l.NextToken()
