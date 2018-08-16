@@ -308,6 +308,8 @@ func TestBuiltinFunctions(t *testing.T) {
 		{`rest([1, 2, 3, 4])`, "[2, 3, 4]"},
 		{`rest(rest([1, 2, 3, 4]))`, "[3, 4]"},
 		{`rest([1])`, "[]"},
+		{`rest(1)`, "argument to `rest` must be ARRAY, got INTEGER"},
+		{`rest([1], 2)`, "wrong number of arguments. got=2, want=1"},
 		{`rest([])`, nil},
 	}
 
