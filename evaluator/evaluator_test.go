@@ -311,6 +311,8 @@ func TestBuiltinFunctions(t *testing.T) {
 		evaluated := testEval(tt.input)
 
 		switch expected := tt.expected.(type) {
+		case nil:
+			testNullObject(t, evaluated)
 		case int:
 			testIntegerObject(t, evaluated, int64(expected))
 		case string:
