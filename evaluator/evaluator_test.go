@@ -305,6 +305,10 @@ func TestBuiltinFunctions(t *testing.T) {
 		{`last(1)`, "argument to `last` must be ARRAY, got INTEGER"},
 		{`last(1, 2)`, "wrong number of arguments. got=2, want=1"},
 		{`last([])`, nil},
+		{`rest([1, 2, 3, 4])`, "[2, 3, 4]"},
+		{`rest(rest([1, 2, 3, 4]))`, "[3, 4]"},
+		{`rest([1])`, "[]"},
+		{`rest([])`, nil},
 	}
 
 	for _, tt := range tests {
@@ -316,6 +320,12 @@ func TestBuiltinFunctions(t *testing.T) {
 		case int:
 			testIntegerObject(t, evaluated, int64(expected))
 		case string:
+			arrObj, ok := evaluated.(*object.Array)
+			if ok {
+				testArrayObject(t, arrObj, expected)
+				continue
+			}
+
 			errObj, ok := evaluated.(*object.Error)
 			if !ok {
 				t.Errorf("object is not Error. got=%T (%+v)", evaluated, evaluated)
@@ -418,5 +428,14 @@ func testNullObject(t *testing.T, obj object.Object) bool {
 		t.Errorf("object is not NULL. got=%T (%+v)", obj, obj)
 		return false
 	}
+	return true
+}
+
+func testArrayObject(t *testing.T, obj *object.Array, expected string) bool {
+	if obj.Inspect() != expected {
+		t.Errorf("object has wrong value. got=%t, want=%s", obj.Elements, expected)
+		return false
+	}
+
 	return true
 }
