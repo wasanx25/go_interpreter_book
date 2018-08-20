@@ -28,6 +28,8 @@ func Modify(node Node, modifier ModifierFunc) Node {
 		for i := range modifyNode.Statements {
 			modifyNode.Statements[i], _ = Modify(modifyNode.Statements[i], modifier).(Statement)
 		}
+	case *ReturnStatement:
+		modifyNode.ReturnValue, _ = Modify(modifyNode.ReturnValue, modifier).(Expression)
 	}
 
 	return modifier(node)
