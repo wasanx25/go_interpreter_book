@@ -58,6 +58,34 @@ func TestModify(t *testing.T) {
 			&ast.IndexExpression{Left: one(), Index: one()},
 			&ast.IndexExpression{Left: two(), Index: two()},
 		},
+		{
+			&ast.IfExpression{
+				Condition: one(),
+				Consequence: &ast.BlockStatement{
+					Statements: []ast.Statement{
+						&ast.ExpressionStatement{Expression: one()},
+					},
+				},
+				Alternative: &ast.BlockStatement{
+					Statements: []ast.Statement{
+						&ast.ExpressionStatement{Expression: one()},
+					},
+				},
+			},
+			&ast.IfExpression{
+				Condition: two(),
+				Consequence: &ast.BlockStatement{
+					Statements: []ast.Statement{
+						&ast.ExpressionStatement{Expression: two()},
+					},
+				},
+				Alternative: &ast.BlockStatement{
+					Statements: []ast.Statement{
+						&ast.ExpressionStatement{Expression: two()},
+					},
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {
