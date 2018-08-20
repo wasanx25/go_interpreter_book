@@ -90,6 +90,10 @@ func TestModify(t *testing.T) {
 			&ast.ReturnStatement{ReturnValue: one()},
 			&ast.ReturnStatement{ReturnValue: two()},
 		},
+		{
+			&ast.LetStatement{Value: one()},
+			&ast.LetStatement{Value: two()},
+		},
 	}
 
 	for _, tt := range tests {
