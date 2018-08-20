@@ -10,6 +10,14 @@ func Modify(node Node, modifier ModifierFunc) Node {
 		}
 	case *ExpressionStatement:
 		modifyNode.Expression, _ = Modify(modifyNode.Expression, modifier).(Expression)
+	case *InfixExpression:
+		modifyNode.Left, _ = Modify(modifyNode.Left, modifier).(Expression)
+		modifyNode.Right, _ = Modify(modifyNode.Right, modifier).(Expression)
+	case *PrefixExpression:
+		modifyNode.Right, _ = Modify(modifyNode.Right, modifier).(Expression)
+	case *IndexExpression:
+		modifyNode.Left, _ = Modify(modifyNode.Left, modifier).(Expression)
+		modifyNode.Index, _ = Modify(modifyNode.Index, modifier).(Expression)
 	}
 
 	return modifier(node)
