@@ -37,6 +37,10 @@ func Modify(node Node, modifier ModifierFunc) Node {
 			modifyNode.Parameters[i], _ = Modify(modifyNode.Parameters[i], modifier).(*Identifier)
 		}
 		modifyNode.Body, _ = Modify(modifyNode.Body, modifier).(*BlockStatement)
+	case *ArrayLiteral:
+		for i := range modifyNode.Elements {
+			modifyNode.Elements[i], _ = Modify(modifyNode.Elements[i], modifier).(Expression)
+		}
 	}
 
 	return modifier(node)
