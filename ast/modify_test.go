@@ -126,4 +126,25 @@ func TestModify(t *testing.T) {
 			t.Errorf("not equal. got=%#v, want=%#v", modified, tt.expected)
 		}
 	}
+
+	hashLiteral := &ast.HashLiteral{
+		Pairs: map[ast.Expression]ast.Expression{
+			one(): one(),
+			one(): one(),
+		},
+	}
+
+	ast.Modify(hashLiteral, turnOneIntoTwo)
+
+	for key, val := range hashLiteral.Pairs {
+		key := key.(*ast.IntegerLiteral)
+		if key.Value != 2 {
+			t.Errorf("value is not %d, got=%d", 2, key.Value)
+		}
+
+		val := val.(*ast.IntegerLiteral)
+		if val.Value != 2 {
+			t.Errorf("value is not %d, got=%d", 2, key.Value)
+		}
+	}
 }
